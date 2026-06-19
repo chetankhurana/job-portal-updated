@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth, useUser } from "@clerk/clerk-react";
+import { jobsData } from "../assets/assets";
 
 export const AppContext = createContext()
 
@@ -39,11 +40,13 @@ export const AppContextProvider = (props) => {
                 console.log(data.jobs)
             }
             else{
-                toast.error(data.message)
+                setJobs(jobsData)
+                toast.info('Showing demo jobs until the database reconnects')
             }
 
-        } catch (error) {
-            toast.error(error.message)
+        } catch {
+            setJobs(jobsData)
+            toast.info('Showing demo jobs until the database reconnects')
         }
     }
 

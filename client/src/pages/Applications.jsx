@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import NavBar from '../components/NavBar'
-import { assets, jobsApplied } from '../assets/assets';
+import { assets } from '../assets/assets';
 import moment from 'moment';
 import Footer from '../components/Footer';
 import { AppContext } from '../context/AppContext';
@@ -86,10 +86,16 @@ function Applications() {
                         </tr>
                     </thead>
                     <tbody>
-                        {userApplications.map((job , index)=>true ? (
+                        {userApplications.map((job , index)=>(
                             <tr key={index}>
                                 <td className='py-3 px-4 flex items-center gap-2 border-b'>
-                                    <img className='w-8 h-8' src={job.jobId?.companyId?.image} alt="" />
+                                    {job.jobId?.companyId?.image ? (
+                                        <img className='w-8 h-8 object-contain' src={job.jobId.companyId.image} alt={job.jobId.companyId.name} />
+                                    ) : (
+                                        <div className='w-8 h-8 bg-gray-200 rounded flex items-center justify-center text-xs font-semibold text-gray-600'>
+                                            {job.jobId?.companyId?.name?.slice(0, 1).toUpperCase() || 'N'}
+                                        </div>
+                                    )}
                                     {job.jobId?.companyId?.name}
                                 </td>
                                 <td className='py-2 px-4 border-b'>{job.jobId.title}</td>
@@ -99,7 +105,7 @@ function Applications() {
                                     <span className={`${job.status === 'Accepted' ? 'bg-green-100' : job.status === 'Rejected' ? 'bg-red-100' : 'bg-blue-100'} px-4 py-1.5 rounded`}>{job.status}</span>
                                     </td>
                             </tr>
-                        ) : (null) )}
+                        ))}
                     </tbody>
                 </table>
             </div>

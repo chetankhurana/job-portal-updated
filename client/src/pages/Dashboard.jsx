@@ -29,12 +29,18 @@ function Dashboard() {
             {/* Navbar for Recrutier */}
             <div className='shadow py-4'>
                 <div className='px-5 flex justify-between items-center'>
-                    <img onClick={e => navigate('/')} className='max-sm:w-32 cursor-pointer' src={assets.logo} alt="" />
+                    <img onClick={() => navigate('/')} className='max-sm:w-32 cursor-pointer' src={assets.logo} alt="" />
                     {companyData && (
                         <div className='flex items-center gap-3'>
-                        <p className='max-sm:hidden'>Welcome , {companyData.name}</p>
+                        <p className='max-sm:hidden'>Welcome ,</p>
                         <div className='relative group'>
-                            <img className='w-8 border rounded-full' src={companyData.image} alt="" />
+                            {companyData?.image ? (
+                                <img className='max-h-10 w-auto object-contain' src={companyData.image} alt={companyData.name} />
+                            ) : (
+                                <div className='w-10 h-10 bg-blue-600 flex items-center justify-center text-white text-lg font-bold rounded'>
+                                    {companyData?.name?.slice(0, 1).toUpperCase()}
+                                </div>
+                            )}
                             <div className='absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12'>
                                 <ul className='list-none m-0 p-2 bg-white rounded-md border text-sm'>
                                     <li onClick={logout} className='py-1 px-2 cursor-pointer pr-10'>Logout</li>
@@ -63,6 +69,11 @@ function Dashboard() {
                         <NavLink className={({isActive})=>`flex items-center p-3 sm:px-6 gap-2 w-full hover:bg-gray-100 ${isActive && 'bg-blue-100 border-r-4 border-blue-500'}`} to={'/dashboard/view-applications'}>
                             <img className='min-w-4' src={assets.person_tick_icon} alt="" />
                             <p className='max-sm:hidden'>View Applications</p>
+                        </NavLink>
+
+                        <NavLink className={({isActive})=>`flex items-center p-3 sm:px-6 gap-2 w-full hover:bg-gray-100 ${isActive && 'bg-blue-100 border-r-4 border-blue-500'}`} to={'/dashboard/insights'}>
+                            <img className='min-w-4' src={assets.suitcase_icon} alt="" />
+                            <p className='max-sm:hidden'>Insights</p>
                         </NavLink>
                     </ul>
                 </div>

@@ -86,4 +86,22 @@
 .rich-text li {
     margin-bottom: 8px
 }
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #resume-preview,
+    #resume-preview * {
+        visibility: visible;
+    }
+
+    #resume-preview {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        padding: 32px;
+    }
+}
   

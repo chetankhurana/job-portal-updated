@@ -1,4 +1,4 @@
- import React, { use, useContext, useEffect , useState } from 'react'
+ import React, { useContext, useEffect , useState } from 'react'
  import { useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from '../context/AppContext';
 import Loading from '../components/Loading';
@@ -11,6 +11,7 @@ import Footer from '../components/Footer';
 import axios from 'axios';
 import {toast} from 'react-toastify'
 import { useAuth } from '@clerk/clerk-react';
+import { jobsData } from '../assets/assets';
 
 
  function ApplyJob() {
@@ -34,10 +35,14 @@ import { useAuth } from '@clerk/clerk-react';
                 setJobData(data.job)
             }
             else{
-                toast.error(data.message)
+                const fallbackJob = jobs.find(job => job._id === id) || jobsData.find(job => job._id === id)
+                if (fallbackJob) setJobData(fallbackJob)
+                else toast.error(data.message)
             } 
         } catch (error) {
-            toast.error(error.message)
+            const fallbackJob = jobs.find(job => job._id === id) || jobsData.find(job => job._id === id)
+            if (fallbackJob) setJobData(fallbackJob)
+            else toast.error(error.message)
         }
     }
 
@@ -93,7 +98,13 @@ import { useAuth } from '@clerk/clerk-react';
                 <div className='bg-white text-black rounded w-full'>
                     <div className='flex justify-center md:justify-between flex-wrap gap-8 px-14 py-20 mb-6 bg-sky-50 border border-sky-400 rounded-xl'>
                         <div className='flex flex-col md:flex-row items-center'>
-                            <img className='h-24 bg-white rounded-lg p-4 mr-4 max-md:mb-4 border' src={JobData.companyId.image} alt="" />
+                            {JobData?.companyId?.image ? (
+                                <img className='h-24 bg-white rounded-lg p-4 mr-4 max-md:mb-4 border object-contain' src={JobData.companyId.image} alt={JobData.companyId.name} />
+                            ) : (
+                                <div className='h-24 w-24 bg-gray-200 rounded-lg p-4 mr-4 max-md:mb-4 border flex items-center justify-center text-sm font-semibold text-gray-600'>
+                                    {JobData?.companyId?.name?.slice(0, 3).toUpperCase() || 'N/A'}
+                                </div>
+                            )}
                             <div className='text-center md:text-left text-neutral-700'>
                                 <h1 className='text-2xl sm:text-4xl font-medium '>{JobData.title}</h1>
                                 <div className='flex flex-row flex-wrap max-md:justify-center gap-y-2 gap-6 items-center text-gray-600 mt-2'>

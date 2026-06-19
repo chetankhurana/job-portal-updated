@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { manageJobsData } from '../assets/assets'
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext';
@@ -94,7 +93,7 @@ function ManageJobs() {
                 </table>
             </div>
             <div className='mt-4 flex justify-end'>
-                <button onClick={e => navigate('/dashboard/add-job')} className='bg-black text-white py-2 px-4 rounded'>Add New Job</button>
+                <button onClick={() => navigate('/dashboard/add-job')} className='bg-black text-white py-2 px-4 rounded'>Add New Job</button>
             </div>
         </div>
     ) : <Loading />
