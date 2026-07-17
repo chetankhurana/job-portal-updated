@@ -1,0 +1,37 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Your branch is up to date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   .env
+#	modified:   .gitignore
+#	modified:   config/db.js
+#	new file:   controllers/analyticsController.js
+#	modified:   controllers/companyController.js
+#	modified:   controllers/userController.js
+#	new file:   models/Assessment.js
+#	new file:   models/CampusDrive.js
+#	new file:   models/Certification.js
+#	new file:   models/Interview.js
+#	modified:   models/JobApplication.js
+#	new file:   models/RecommendationFeedback.js
+#	new file:   models/Resume.js
+#	new file:   models/TestResult.js
+#	modified:   package-lock.json
+#	modified:   package.json
+#	new file:   public/logos/accenture_logo.png
+#	new file:   public/logos/adobe_logo.png
+#	new file:   public/logos/amazon_logo.png
+#	new file:   public/logos/google.png
+#	new file:   public/logos/microsoft_logo.svg
+#	new file:   public/logos/samsung_logo.png
+#	new file:   public/logos/walmart_logo.svg
+#	modified:   routes/companyRoutes.js
+#	modified:   routes/userRoutes.js
+#	new file:   seed.js
+#	modified:   server.js
+#	new file:   utils/emailService.js
+#
