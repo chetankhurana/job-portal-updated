@@ -19,48 +19,49 @@ async function seed() {
     await Job.deleteMany();
 
     // 1. Create multiple prominent companies (recruiters) with actual logos
+    const backendUrl = process.env.BACKEND_URL || "http://localhost:3000";
     const hashPassword = await bcrypt.hash("Recruiter@123", 10);
     const companies = await Company.insertMany([
       {
         name: "Microsoft",
         email: "recruiter@microsoft.com",
-        image: "http://localhost:3000/logos/microsoft_logo.svg",
+        image: `${backendUrl}/logos/microsoft_logo.svg`,
         password: hashPassword
       },
       {
         name: "Google",
         email: "recruiter@google.com",
-        image: "http://localhost:3000/logos/google.png",
+        image: `${backendUrl}/logos/google.png`,
         password: hashPassword
       },
       {
         name: "Amazon",
         email: "recruiter@amazon.com",
-        image: "http://localhost:3000/logos/amazon_logo.png",
+        image: `${backendUrl}/logos/amazon_logo.png`,
         password: hashPassword
       },
       {
         name: "Walmart",
         email: "recruiter@walmart.com",
-        image: "http://localhost:3000/logos/walmart_logo.svg",
+        image: `${backendUrl}/logos/walmart_logo.svg`,
         password: hashPassword,
       },
       {
         name: "Samsung",
         email: "recruiter@samsung.com",
-        image: "http://localhost:3000/logos/samsung_logo.png",
+        image: `${backendUrl}/logos/samsung_logo.png`,
         password: hashPassword,
       },
       {
         name: "Adobe",
         email: "recruiter@adobe.com",
-        image: "http://localhost:3000/logos/adobe_logo.png",
+        image: `${backendUrl}/logos/adobe_logo.png`,
         password: hashPassword,
       },
       {
         name: "Accenture",
         email: "recruiter@accenture.com",
-        image: "http://localhost:3000/logos/accenture_logo.png",
+        image: `${backendUrl}/logos/accenture_logo.png`,
         password: hashPassword,
       },
     ]);

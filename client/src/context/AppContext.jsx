@@ -29,6 +29,14 @@ export const AppContextProvider = (props) => {
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
 
+    const formatImageUrl = (url) => {
+        if (!url) return url;
+        if (url.startsWith('http://localhost:3000')) {
+            return url.replace('http://localhost:3000', backendUrl);
+        }
+        return url;
+    }
+
 
     //function to fetch job data
     const fetchJobs = async () => {
@@ -36,8 +44,14 @@ export const AppContextProvider = (props) => {
             
             const { data } = await axios.get(backendUrl+'/api/jobs')
             if(data.success){
-                setJobs(data.jobs)
-                console.log(data.jobs)
+                const formattedJobs = data.jobs.map(job => {
+                    if (job.companyId && job.companyId.image) {
+                        job.companyId.image = formatImageUrl(job.companyId.image);
+                    }
+                    return job;
+                });
+                setJobs(formattedJobs)
+                console.log(formattedJobs)
             }
             else{
                 setJobs(jobsData)
@@ -77,6 +91,9 @@ export const AppContextProvider = (props) => {
             const {data} = await axios.get(backendUrl+'/api/company/company',{headers:{token:companyToken}})
 
             if(data.success){
+                if (data.company && data.company.image) {
+                    data.company.image = formatImageUrl(data.company.image);
+                }
                 setCompanyData(data.company)
                 console.log(data);
             }
@@ -98,7 +115,13 @@ export const AppContextProvider = (props) => {
             
 
             if(data.success){
-                setUserApplications(data.applications)
+                const formattedApps = data.applications.map(app => {
+                    if (app.jobId && app.jobId.companyId && app.jobId.companyId.image) {
+                        app.jobId.companyId.image = formatImageUrl(app.jobId.companyId.image);
+                    }
+                    return app;
+                });
+                setUserApplications(formattedApps)
             }
             else{
                 toast.error(data.message)
